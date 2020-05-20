@@ -15,7 +15,7 @@ public class NbpService implements ExchangeRate {
     private static final String NBP_API_TABLE = "https://api.nbp.pl/api/exchangerates/tables/A/last/3?format=json";
 
     @Override
-    public void getDataFromTable() {
+    public TableDto[] getDataFromTable() {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -25,6 +25,8 @@ public class NbpService implements ExchangeRate {
         Arrays.stream(body).map(TableDto::getRates)
                 .flatMap(Collection::stream)
                 .forEach(r->log.info("rate: {}",r));
+
+        return body;
 
 
     }
